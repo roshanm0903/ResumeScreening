@@ -1,0 +1,115 @@
+D1 / RECRUITMENT AT VOLUME
+
+
+
+Recruitment screening decision brief
+Decision for the four month seasonal hiring launch
+
+
+Recommendation. Protect interview time from unsuitable candidates and move qualified candidates promptly to a
+confirmed booking. Automatically reject confirmed mandatory-check failures and candidates below the role-specific LLM
+score threshold. Progress the rest to scheduling. Resolve missing inputs and scheduling exceptions through WhatsApp;
+reserve human review for unresolved or contested cases and required interventions.
+
+Protect interview time and retain qualified candidates
+Unsuitable candidates consume panel time; qualified candidates can slip through before an interview is booked. Delayed
+contact is a major driver of candidate loss in this case. Screening mistakes are another risk, whose size needs
+validation. Recruiter capacity and scheduling effort contribute to these outcomes. Ladders reported a 7.4 second initial scan
+[1]; Cronofy found 42% had left a process over scheduling delays [2].
+
+Combine mandatory checks and LLM scoring
+
+          Application received                                    Parse and redact                            Apply approved policy
+
+          Mobile form and resume                             Name excluded from scoring                    Mandatory checks then LLM rubric
+
+
+
+
+   Mandatory check failed                 Score below threshold                      Input missing or             Checks and score pass
+                                                                                        unreadable
+      Reject with rule reason            Reject with scoring evidence           Clarify through WhatsApp         Batch then offer interview slots
+
+
+
+Why batch. Immediate invitations can use scarce panel slots before stronger applications arrive. Pool applicants by
+requisition, prioritize higher passing score bands, and use deadline order within each band. A 12 hour cadence is a
+provisional MVP choice: it allows comparison while capping planned batch wait at 12 hours, leaving up to 36 hours for
+clarification and delivery retries before the 48 hour outreach limit. Batching does not change rejection thresholds; a full
+calendar is a capacity issue. Start with a fixed customer setting, then test shorter or longer intervals against booking quality,
+panel effort and SLA breaches. Never extend an applicant's original deadline.
+
+Recruiter journey
+Open the requisition, select the role template and approve job-specific criteria. Add the first-round panel; the agent fetches
+availability. After publication, monitor scores, rejection rates, outreach deadlines and bookings. Act only on escalations. On
+role closure, stop new invitations and notify remaining applicants.
+
+Applicant and candidate journey
+Apply on mobile, upload a resume, provide role requirements and select a contact channel. Receive a decision or
+clarification within 48 hours. Confirm missing inputs in WhatsApp; if selected, choose one of three slots or request
+alternatives. Receive confirmation and reminders, reschedule if needed, and request reasons or human review without an
+employee login.
+
+Approach and scope. Use explicit requirements plus role-specific LLM scoring. Reject below the configured threshold; do
+not rank within score bands. Assume inbound applications and structured answers already exist. WhatsApp is the first
+exception-resolution route; SMS or another approved channel is the fallback.
+
+
+
+
+Roshan Manellore | Darwinbox recruitment case | 3 November 2026                                                                         D1 / 1 of 2
+D1 / RECRUITMENT AT VOLUME
+
+
+
+Launch controls and success metrics
+Measurement accountability and staged rollout
+
+
+Success metrics and guardrails
+North star: Qualified candidates with a confirmed first-round interview booking each week; count once per requisition
+against approved job criteria.
+Business: 1 Time to fill a position; 2 recruiter hours per confirmed booking, including exceptions; 3 cost per qualified
+booking, including processing, messaging and human effort.
+Performance: 1 Meaningful outreach within 48 hours, excluding generic acknowledgements; 2 invitation-to-booking
+conversion; 3 WhatsApp exceptions resolved without human intervention.
+Guardrails: 1 Reduce unsuitable interview referrals; pilot ceiling of 2% qualified candidates incorrectly excluded, with
+independent sampling and fairness checks; 2 prevent conflicting or duplicate bookings and track system-caused changes; 3
+use approved thresholds, retain decision evidence and a review path, and escalate unresolved cases at 36 hours.
+
+
+Country approval and decision evidence
+Employment counsel and the privacy lead approve each market: India hiring and privacy requirements; US federal, state
+and local hiring, accessibility and automated-tool duties; Germany GDPR, applicable EU AI Act duties and works council
+involvement. Confirm notices, data handling and candidate rights before launch.
+
+Talent acquisition owns versioned rules and their job-related reasons. Redact names; decide further proxy controls during
+design. Keep evidence, policy/model/prompt versions, overrides, delivery and tool results with access and retention controls.
+Treat resumes as untrusted data; test injection and extraction failures.
+
+Make LLM scoring robust before launch
+Use role-specific anchored ratings and source-linked evidence; compute the weighted total deterministically. Test scoring
+stability, transferable experience, resume formatting, keyword stuffing and prompt injection. Back-test known good hires,
+then independently label samples across all bands to measure false positives and false negatives. Version the rubric,
+threshold, model and prompt; revalidate changes before activation.
+
+Launch in stages and retain a fallback
+
+
+WEEKS 01-02                            WEEKS 03-06                             WEEKS 07-10                            WEEKS 11-16
+
+Agree and baseline                     Build core flow                         Shadow and evaluate                    Pilot then expand
+
+
+
+Start with one role family and selected sites. Agree metric baselines and targets in shadow mode. Expand after country
+approval, quality and calendar checks pass. Pause harmful automation and retain human escalation and manual screening
+as fallbacks.
+[1] Ladders, 2018 eye-tracking study announcement. Source. [2] Cronofy, Candidate Expectations Report 2024; 12,000 respondents in seven countries, including
+the US and Germany, excluding India. Source. Both are vendor studies; validate local behavior in the pilot.
+
+
+
+
+Roshan Manellore | Darwinbox recruitment case | 3 November 2026                                                                                    D1 / 2 of 2
+

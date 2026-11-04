@@ -1,0 +1,32 @@
+from pathlib import Path
+p=Path('tmp/pdfs/build_submission.py');s=p.read_text()
+s=s.replace("check(y,'D1 page 1');c.showPage()", """y=heading('North star metric',y+12)
+y=body('<b>Qualified candidates with a confirmed first-round interview booking each week.</b> Count each candidate once per requisition, using the employer\\'s approved qualification criteria. Report by role, site and country, alongside application volume.',y,0)
+check(y,'D1 page 1');c.showPage()""")
+a=s.index("y=page_start('D1','Decision controls and launch gates'")
+b=s.index("check(y,'D1 page 2');c.save()",a)
+# Preserve the original research links as a compact source note.
+source=s[s.index("y=para('[1] Ladders",a):b]
+s=s[:a]+'''y=page_start('D1','Success measures and launch controls','Three business measures three performance measures and three guardrails',2)
+y=heading('Business metrics',y)
+y=body('<b>1  Time to fill a position.</b> Track vacancy duration against comparable role and site cohorts. Later hiring stages also affect the result.',y,5)
+y=body('<b>2  Recruiter hours per confirmed booking.</b> Include coordination, exceptions and corrections to measure total effort saved.',y,5)
+y=body('<b>3  Cost per qualified interview booking.</b> Include processing, messaging and human effort.',y,10)
+y=heading('Performance metrics',y)
+y=body('<b>1  Meaningful outreach within 48 hours.</b> Percentage receiving an invitation, a specific clarification or an explained next step. Target every applicant; generic acknowledgements do not count. Report delivery failures and deadline breaches.',y,5)
+y=body('<b>2  Invitation to booking conversion.</b> Percentage of invited candidates who confirm a slot; compare cohorts with the same follow-up window.',y,5)
+y=body('<b>3  WhatsApp exception resolution rate.</b> Percentage of clarification and scheduling exceptions resolved without human intervention.',y,10)
+y=heading('Guardrails',y)
+y=body('<b>1  Screening quality and fairness.</b> Proposed pilot ceiling: no more than 2% of independently assessed qualified candidates incorrectly excluded. Sample every score band; report uncertainty and investigate unexplained group differences where lawful.',y,5)
+y=body('<b>2  Booking reliability.</b> Prevent conflicting or duplicate bookings. Track system-caused cancellations and rescheduling.',y,5)
+y=body('<b>3  Candidate protection and accountability.</b> No score-only rejection at launch. Record criterion evidence and policy versions; provide a correction and review path. Escalate unresolved cases at 36 hours.',y,10)
+y=heading('Country approval and decision evidence',y)
+y=body('Employment counsel and the privacy lead approve each market: <b>India</b> hiring and privacy requirements; <b>US</b> federal, state and local hiring, accessibility and automated-tool duties; <b>Germany</b> GDPR, applicable EU AI Act duties and works council involvement. Confirm notices, data handling and candidate rights before launch.',y,6)
+y=body('Talent acquisition owns versioned rules and their job-related reasons. Redact names; decide further proxy controls during design. Keep evidence, policy/model/prompt versions, overrides, delivery and tool results with access and retention controls. Treat resumes as untrusted data; test injection and extraction failures.',y,10)
+y=heading('Launch in stages and retain a fallback',y)
+y=timeline(y)
+y=body('Start with one role family and selected sites. Agree metric baselines and targets in shadow mode. Expand after country approval, quality and calendar checks pass. Pause harmful automation and retain human escalation and manual screening as fallbacks.',y,6)
+'''+source+s[b:]
+p.write_text(s)
+# Generate only the requested decision brief; leave the build sheet unchanged.
+Path('tmp/pdfs/build_decision_only.py').write_text(s[:s.index('# D2\n')])

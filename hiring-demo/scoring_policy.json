@@ -1,0 +1,133 @@
+{
+  "version": "match-policy-v2",
+  "score_label": "Match score",
+  "default_threshold": 70,
+  "rating_max": 2,
+  "rounding": "Round the weighted total once to 2 decimals (half up), then compare with the job threshold.",
+  "formula": "100 * sum(weight_fraction * rating / 2)",
+  "high_volume_trigger": 80,
+  "not_scored": "Not scored",
+  "anchors": [
+    {
+      "rating": 0,
+      "label": "No evidence",
+      "description": "No relevant evidence in the readable resume."
+    },
+    {
+      "rating": 1,
+      "label": "Limited evidence",
+      "description": "A relevant task is stated, with limited context."
+    },
+    {
+      "rating": 2,
+      "label": "Clear evidence",
+      "description": "Relevant evidence with concrete context that meets the criterion's specific evidence requirements."
+    }
+  ],
+  "buckets": [
+    {
+      "label": "Poor",
+      "min": 0,
+      "max": 50,
+      "max_inclusive": false,
+      "range": "0 to <50"
+    },
+    {
+      "label": "Fair",
+      "min": 50,
+      "max": 70,
+      "max_inclusive": false,
+      "range": "50 to <70"
+    },
+    {
+      "label": "Good",
+      "min": 70,
+      "max": 86,
+      "max_inclusive": false,
+      "range": "70 to <86"
+    },
+    {
+      "label": "Excellent",
+      "min": 86,
+      "max": 100,
+      "max_inclusive": true,
+      "range": "86 to 100"
+    }
+  ],
+  "warehouse_criteria": [
+    {
+      "key": "operations",
+      "label": "Warehouse operations experience",
+      "weight": 20,
+      "evidence": "3+ years preferred; inbound, inventory and dispatch planning.",
+      "assessment": "Assess warehouse, fulfillment or transferable distribution operations experience. Three years is an illustrative preference, not an automatic rejection gate. Do not invent tenure from missing dates. Rate 0 for no relevant evidence, 1 for task exposure with unclear ownership, and 2 for clear operational ownership across inbound, inventory and outbound processes with scope/context. Evaluate tenure here, not again under leadership.",
+      "rating_criteria": {
+        "0": "No relevant operations evidence.",
+        "1": "Relevant task exposure, but ownership or scope is unclear.",
+        "2": "Clear ownership across inbound, inventory and outbound operations, with scope/context. Three years is preferred, not a hard gate."
+      }
+    },
+    {
+      "key": "leadership",
+      "label": "Shift & people leadership",
+      "weight": 35,
+      "evidence": "Rosters, staffing, coaching and shift handovers.",
+      "assessment": "Assess actual responsibility for running a team or shift: labor allocation, rosters, attendance, coaching, escalations and handovers. Individual picking/packing is not people leadership. Rate 0 for no leadership evidence, 1 for informal coordination or unclear ownership, and 2 for clear responsibility with team size, decisions or coaching examples. Quantified business improvements are scored separately under impact.",
+      "rating_criteria": {
+        "0": "No evidence of leading a team or shift.",
+        "1": "Informal coordination, with unclear responsibility for people.",
+        "2": "Owns staffing, rosters, coaching or handovers, supported by team scope or concrete decisions."
+      }
+    },
+    {
+      "key": "systems",
+      "label": "Warehouse technology & data",
+      "weight": 10,
+      "evidence": "WMS, dashboards and using KPIs to manage a shift.",
+      "assessment": "Assess use of warehouse management systems, reporting tools and operational data to make shift decisions. Accept equivalent tools without requiring specific brands. Rate 0 for no relevant evidence, 1 for naming tools or using a scanner without managerial application, and 2 for using WMS/reports/KPIs to investigate problems, reallocate work or manage performance.",
+      "rating_criteria": {
+        "0": "No relevant warehouse technology or data evidence.",
+        "1": "Names tools or uses scanners without applying them to shift management.",
+        "2": "Uses WMS, reports or KPIs to investigate issues, allocate work or manage performance. Equivalent tools qualify."
+      }
+    },
+    {
+      "key": "safety_leadership",
+      "label": "Safety & compliance leadership",
+      "weight": 15,
+      "evidence": "Safety briefings, incident response and corrective actions.",
+      "assessment": "Assess responsibility for safe operations: safety briefings, audits, incident/near-miss response, training and corrective actions. Rate 0 for no evidence, 1 for following personal safety rules, and 2 for leading team safety practices or corrective actions with concrete context. Do not infer incident-free performance or regulatory certification.",
+      "rating_criteria": {
+        "0": "No relevant safety evidence.",
+        "1": "Follows personal safety procedures without leadership responsibility.",
+        "2": "Leads briefings, training, audits, incident response or corrective action with concrete context. Do not infer certifications."
+      }
+    },
+    {
+      "key": "improvement",
+      "label": "Operational improvement",
+      "weight": 10,
+      "evidence": "Identify bottlenecks; implement better workflows and SOPs.",
+      "assessment": "Assess practical process improvement, not novelty for its own sake. Rate 0 for no improvement evidence, 1 for suggesting/participating without clear ownership, and 2 for identifying a bottleneck or root cause, implementing a workflow/SOP change and checking adoption. Assess ownership and actions here; quantify outcomes under impact.",
+      "rating_criteria": {
+        "0": "No improvement evidence.",
+        "1": "Suggests or participates in improvements without clear ownership.",
+        "2": "Identifies a bottleneck, implements a workflow/SOP change and checks adoption. Assess actions here; results under impact."
+      }
+    },
+    {
+      "key": "impact",
+      "label": "Measurable operational impact",
+      "weight": 10,
+      "evidence": "Throughput, accuracy, cost or service improvement.",
+      "assessment": "Assess measurable operational results attributable to the candidate: productivity, dispatch SLA, accuracy, labor cost, overtime or safety improvements. Rate 0 for no outcome evidence, 1 for an unquantified improvement or numbers that only describe scope, and 2 for a numerical before/after, percentage change or outcome against a target with scale/time context and candidate contribution. Team size and daily order volume alone are not evidence of improvement. Do not invent baselines or treat claimed results as independently verified.",
+      "rating_criteria": {
+        "0": "No relevant outcome evidence.",
+        "1": "Claims improvement or lists team/volume scale without a measurable result.",
+        "2": "Gives a numerical operational improvement with baseline/comparison or time/scale context and own contribution. Team size alone is insufficient."
+      }
+    }
+  ],
+  "warehouse_role_name": "Warehouse shift manager",
+  "warehouse_sample_resume": "Warehouse shift supervisor, January 2022 to October 2026. Owned inbound receiving, stock accuracy and outbound dispatch for a distribution centre handling 4,000 orders per day. Led 24 associates across two shifts, set daily rosters and labor allocation, coached four team leads and ran shift handovers. Used WMS dashboards and Excel reports to investigate backlog and reassign staff during peak demand. Led weekly safety briefings and monthly audits, investigated near misses and implemented corrective actions for loading-bay hazards. Identified congestion in the packing area, redesigned pick-face locations and introduced a shift-handover checklist, then monitored adoption. Over six months these changes reduced average order-to-dispatch time from 6 to 4.5 hours, improved pick accuracy from 97.8% to 99.2%, and cut overtime hours by 12%."
+}

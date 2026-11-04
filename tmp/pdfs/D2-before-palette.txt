@@ -1,0 +1,151 @@
+D2 / RECRUITMENT AT VOLUME
+
+
+
+Recruitment screening build sheet
+MVP workflow data contracts and delivery scope
+
+
+Reuse recruitment records and scheduling. The LLM rates role evidence; policy rejects failed mandatory checks or scores
+below threshold and schedules passing candidates. Resolve factual gaps and scheduling exceptions through the
+candidate's messaging channel before escalating.
+
+Solution architecture
+
+          Recruiter workspace                                Applicant mobile journey                               Channel adapter
+     Requisitions, templates, dashboard                     Resume and structured answers                      WhatsApp / SMS and consent
+
+
+
+
+    Document and scoring service                            Workflow and policy engine                          MCP calendar gateway
+
+       Parse, redact, extract evidence                        Batch, clarify, route and retry                   Availability and booking tools
+
+
+
+
+                           Application database and audit events                                               External panel calendars
+
+               Candidates, scores, evidence, policy versions, messages and bookings                           Production via MCP; demo tables
+
+
+
+Replies return to the workflow engine. Validated answers trigger policy re-evaluation; deterministic actions record the candidate ID and policy
+version.
+
+
+Dynamic role templates with explicit evidence anchors
+Use organization controls, role templates and requisition adjustments. Warehouse example below. Check shift, site, start
+date and pay acceptance separately.
+
+  Scoring parameter                                 Weight           Example evidence
+
+  Order picking and packing                         30%              Preparing, checking and packing orders
+
+  Inventory accuracy                                25%              Cycle counts and stock reconciliation
+
+  Warehouse systems                                 20%              Barcode scanners or warehouse systems
+
+  Safety procedures                                 15%              PPE and safe handling procedures
+
+  Dispatch and receiving                            10%              Goods receipt, dispatch or loading
+
+
+Proposed anchors. 0 = no supporting evidence; 1 = relevant task stated; 2 = task with context or a result. Save source
+evidence and ratings; compute weighted totals deterministically. Clarify missing form inputs or unreadable text, then score.
+Exclude non-applicable criteria in the template.
+
+Routing. Reject failed mandatory checks or scores below threshold; schedule passing candidates. Illustrative threshold: 70.
+Bands: 0-49 poor, 50-69 fair, 70-85 good, 86-100 excellent. No ranking within bands. Calibrate before activation.
+
+Scheduling. Offer three slots; accept a choice or find alternatives. Hold, recheck and book once. Bound clarification
+attempts, persist replies and escalate unresolved cases by 36 hours. No response or capacity limit must not become
+rejection.
+Scope. Include structured WhatsApp clarification. Assessments and background verification remain future extensions; explore
+earlier checks with consent and local approval.
+
+
+
+Roshan Manellore | Darwinbox recruitment case | 3 November 2026                                                                            D2 / 1 of 2
+D2 / RECRUITMENT AT VOLUME
+
+
+
+Impact and delivery checks
+Planning assumptions must be replaced with pilot measurements
+
+
+Design for the distribution of demand
+400,000 applications / 20,000 hires = 20 applications per hire; this is not a requisition distribution. Assume p90 = 80
+applications per requisition. Use searchable queues, filters, bulk actions and 15-row pages. Test 500-applicant
+requisitions and 11,000 applications/day: a provisional 5x seasonal peak over the annual daily average, with 2x headroom.
+Validate all load assumptions.
+
+Impact table
+
+  Measure                       Baseline or assumption                    Pilot target and validation
+
+
+  First meaningful                                                        Every applicant attempted before 48h; p95 delivered <48h. Track
+                                Case median: 9 days
+  outreach                                                                all delivery failures and breach rate, not only successes.
+
+
+                                                                          100% ingested; every parse failure visible. No lost or duplicate
+  Screening coverage            Case: not all resumes read
+                                                                          application events.
+
+
+                                Estimate: 10-20 active minutes per        Target 70% less active coordination. Measure time to booking,
+  Scheduling effort
+                                interview                                 attendance and panel capacity separately.
+
+
+                                                                          Pilot target <=2% of independently judged qualified candidates
+  Qualified candidates          Unknown; historical decisions are
+                                                                          wrongly held or excluded. Report uncertainty and lawful subgroup
+  missed                        incomplete labels
+                                                                          cuts.
+
+
+                                                                          60,000 escalations/year = 4,000 staff hours. Measure chat
+  Residual human                Scenario: 15% remain unresolved after
+                                                                          resolution and handoff rates; escalate by 36h. Assumption, not
+  workload                      chat; 4 min each
+                                                                          measured performance.
+
+
+                                                                          $8k-$40k/year at 400k. Budget assumption only; excludes
+  AI processing cost            Scenario: $0.02-$0.10 per application
+                                                                          messaging, storage, integrations, review and verification.
+
+
+Effort scenario. If 20% reach interview, 80,000 interviews x 10-20 minutes = 13,300-26,700 coordination hours/year; a 70% reduction
+implies 9,300-18,700 hours released before exceptions. Screening all applications at an assumed 2-4 minutes each is another
+13,300-26,700 hours of work equivalent, not a claim of current savings. Track time to fill and offer acceptance as downstream outcomes.
+
+Batch policy. Start at 12 hours to compare applicants before allocating panel slots, with 36 hours left for follow-up. Tune the customer
+setting through experiments; preserve each applicant's 48 hour deadline.
+
+Four month build and release plan
+Weeks 1-2: PM, talent operations and local counsel agree rules, country gates, metrics and escalation owners. Weeks 3-6:
+engineering builds templates, evidence storage, chat clarification and calendar tools. Weeks 7-10: QA and hiring managers run
+shadow reviews and failure tests. Weeks 11-16: pilot by role/site, compare results, then expand only where gates pass.
+
+
+Release checks and prototype proof
+Release checks. Re-score a fixed evaluation set, including the disputed best hire; independently assess samples from every band.
+Test prompt injection, extraction failure, duplicate applications, competing bookings, time zones, provider outages and role closure
+notifications. Require complete audit records, human escalation coverage, country sign-off and no unexplained quality regression.
+Retain a kill switch and manual fallback.
+
+Self-guided prototype. Candidate scenarios cover successful booking, missing details, missing resume, mandatory failure and
+below-threshold scoring. Live Gemini assessments, source quotes, ratings, decisions, replies and bookings persist in SQLite; recruiters
+can inspect the same records. MCP calendar access and WhatsApp delivery are simulated. Enterprise approvals and production
+calibration remain to be implemented.
+
+
+
+Roshan Manellore | Darwinbox recruitment case | 3 November 2026                                                                        D2 / 2 of 2
+
